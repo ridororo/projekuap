@@ -126,6 +126,29 @@ int main(){
 	system("color C");
 	initscr();
 	clear();
+    noecho();
+    
+    char choice;
+    bool loginSuccess = false;  // Variabel untuk menyimpan status login
+
+    while (!loginSuccess) {  // Teruskan loop sampai login berhasil
+        mvprintw(10, 40, "Login Terlebih dahulu/ Register untuk username baru");
+        mvprintw(11, 40, "1. Login");
+        mvprintw(12, 40, "2. Register");
+        mvprintw(13, 40, "Pilih [1/2]: ");
+        choice = getch();
+        if (choice == '1') {
+            clear();
+            login(loginSuccess);  // Panggil fungsi login dan beri referensi ke loginSuccess
+        } else if (choice == '2') {
+            clear();
+            registrasi();
+        } else {
+            continue;  // Kembali ke pilihan jika input tidak valid
+        }
+    }
+
+	clear();
 	noecho();
 	cbreak();
 	int awalX = 50, awalY = 10; 
