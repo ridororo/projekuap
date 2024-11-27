@@ -1,10 +1,75 @@
+#include <ncurses/curses.h>
 #include <iostream>
-#include <ncurses/ncurses.h>
-#include <windows.h>
-using namespace std;
+
+void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahOpsi);
+
 
 int main(){
+	system("color C");
+	initscr();
+	clear();
+	noecho();
+	cbreak();
+	int awalX = 50, awalY = 10; 
+	int lebar = 15, tinggi = 12;
+	
+	WINDOW *menu_win = newwin(tinggi, lebar, awalY, awalX);
+	keypad(menu_win, TRUE);
+	
+	mvprintw(5, 39, ">>>Selamat Datang di Menu Permainan<<<");
+	refresh();
+	
+	mvprintw(8, 44, "Silahkan Pilih Menu Di Bawah");
+	refresh();
+	
+	const char *opsi[] = {
+	"|    Start   |", 
+	"|Leader Board|", 
+	"|   Setting  |", 
+	"|    Exit    |" 
+	
+	};
+	int jumlahOpsi = sizeof(opsi) / sizeof(char *);
+	int pilihanTerpilih = 0;
+	int pilihan = -1;
+	
+	while (1){
+		menu(menu_win, pilihanTerpilih, opsi, jumlahOpsi);
+		int tombol = wgetch(menu_win);
+		switch (tombol){
+			case KEY_UP :
+				if (pilihanTerpilih == 0)
+				pilihanTerpilih = jumlahOpsi - 1;
+				else 
+				--pilihanTerpilih;
+				break;
+			case KEY_DOWN:
+				if (pilihanTerpilih == jumlahOpsi - 1)
+				pilihanTerpilih = 0;
+				else
+				++pilihanTerpilih;
+				break;
+			case 10:
+				pilihan = pilihanTerpilih;
+				break;
+		}
+		if (pilihan == 3)
+		break;
+	}
+	
+	clrtoeol();
+	refresh();
+	endwin();
+	return 0;
+} 
 
+void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahOpsi){
 
-return 0;
+  for (int i = 0; i < jumlahOpsi; i++){
+	if (i == pilihanTerpilih)
+	wattron(menu_win, A_REVERSE);
+	mvwprintw(menu_win, i + 1, 1, opsi[i]);
+	wattroff(menu_win, A_REVERSE);
+}
+wrefresh(menu_win);
 }
