@@ -1,6 +1,8 @@
-#include <ncurses/curses.h>
 #include <iostream>
+#include <ncurses/ncurses.h>
 #include <fstream>
+#include <windows.h>
+using namespace std;
 
 void registrasi() {
     ofstream file, accList;
@@ -34,7 +36,7 @@ void registrasi() {
     
     string userRegs = userInput;
     file.open(userRegs + ".txt");
-    file << 0;  
+    file << 0;  // Menyimpan nilai awal 0 di file
     file.close();
     
     accList.open("ListAccount.txt", ios::app);
@@ -92,17 +94,16 @@ void login(bool &loginSuccess) {
         file.open(userLog + ".txt");
         mvprintw(5, 40, "Login Berhasil");
         refresh();
-        loginSuccess = true; 
+        loginSuccess = true;  // Set loginSuccess menjadi true saat login berhasil
         getch();
         file.close();
     } else {
         mvprintw(5, 40, "Login Gagal, pastikan username anda benar");
         refresh();
-        loginSuccess = false;  
+        loginSuccess = false;  // Set loginSuccess menjadi false jika login gagal
         getch();
     }
 }
-
 void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahOpsi);
 void loadingBar(){
     
@@ -122,30 +123,6 @@ Sleep (100);
 }
 
 int main(){
-	clear();
-    system("color C");
-    
-    char choice;
-    bool loginSuccess = false;
-
-    while (!loginSuccess) { 
-        mvprintw(10, 40, "Login Terlebih dahulu/ Register untuk username baru");
-        mvprintw(11, 40, "1. Login");
-        mvprintw(12, 40, "2. Register");
-        mvprintw(13, 40, "Pilih [1/2]: ");
-        choice = getch();
-        if (choice == '1') {
-            clear();
-            login(loginSuccess); 
-        } else if (choice == '2') {
-            clear();
-            registrasi();
-        } else {
-            continue; 
-        }
-    }
-
-
 	system("color C");
 	initscr();
 	clear();
@@ -198,7 +175,7 @@ int main(){
 		break;
 	}
 	clear();
-ladingBar();
+	loadingBar();
 	clrtoeol();
 	refresh();
 	endwin();
