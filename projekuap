@@ -1,5 +1,6 @@
 #include <ncurses/curses.h>
 #include <iostream>
+#include <fstream>
 
 void registrasi() {
     ofstream file, accList;
@@ -121,6 +122,30 @@ Sleep (100);
 }
 
 int main(){
+	clear();
+    system("color C");
+    
+    char choice;
+    bool loginSuccess = false;
+
+    while (!loginSuccess) { 
+        mvprintw(10, 40, "Login Terlebih dahulu/ Register untuk username baru");
+        mvprintw(11, 40, "1. Login");
+        mvprintw(12, 40, "2. Register");
+        mvprintw(13, 40, "Pilih [1/2]: ");
+        choice = getch();
+        if (choice == '1') {
+            clear();
+            login(loginSuccess); 
+        } else if (choice == '2') {
+            clear();
+            registrasi();
+        } else {
+            continue; 
+        }
+    }
+
+
 	system("color C");
 	initscr();
 	clear();
