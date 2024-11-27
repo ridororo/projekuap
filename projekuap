@@ -2,7 +2,22 @@
 #include <iostream>
 
 void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahOpsi);
+void loadingBar(){
+    
+initscr();
+for (int i=0; i<4; i++) {
+mvprintw(12, 50, "Loading...");
+mvprintw(13, 50, "------------------"); 
+mvprintw(14, 50, "|                |");
+mvprintw(15, 50, "------------------");
 
+for (int f=1; f<17; f++) {
+mvprintw(14, 50 + f, ">");
+refresh(); 
+Sleep (100); 
+}
+}
+}
 
 int main(){
 	system("color C");
@@ -56,7 +71,8 @@ int main(){
 		if (pilihan == 3)
 		break;
 	}
-	
+	clear();
+ladingBar();
 	clrtoeol();
 	refresh();
 	endwin();
