@@ -222,5 +222,48 @@ if (pilihan == 0) {
             clear();
             pilihan=-1;
             continue;
+}else if(pilihan==1){
+        	endwin();
+		system("cls");
+        	cout<<"---------------(LeaderBoard)---------------"<<endl;
+        	cout<<setw(30)<<left<<"User"<<setw(30)<<"Score"<<endl;
+        	char kamuNanya;
+        	ifstream file("score.txt",ios::app);
+        	while(!file.eof()){
+				file.get(kamuNanya);
+				cout<<kamuNanya;
+			}
+			cin.get();
+			initscr();
+			pilihan=-1;
+        	
+        	
+		}else if (pilihan == 2){
+        	clear();
+        	mvprintw(14,40,"Sampai jumpa dan terimakasih...");
+        	refresh();
+        	getch();
+			break;
+		}
+	}
+	clear();
+	loadingBar();
+	clrtoeol();
+	refresh();
+	endwin();
+	return 0;
+} 
+
+void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahOpsi){
+
+  for (int i = 0; i < jumlahOpsi; i++){
+	if (i == pilihanTerpilih)
+	wattron(menu_win, A_REVERSE);
+	mvwprintw(menu_win, i + 1, 1, opsi[i]);
+	wattroff(menu_win, A_REVERSE);
+}
+wrefresh(menu_win);
+}
+
 
 }
