@@ -7,15 +7,14 @@
 using namespace std;
 
 void burung(int y, int x){
-	char simbol_burung='@';
-	mvaddch(y, x, simbol_burung);
+	mvaddstr(y, x, "(O)>");
 }
 
 void pipa(int x, int gap_start, int ukuran, int tinggi_layar) {
 	char simbol_pipa='#';
     for (int y = 0; y < tinggi_layar; ++y) {
         if (y < gap_start || y > gap_start + ukuran) {
-            mvaddch(y, x, simbol_pipa);
+            mvaddstr(y, x, "====");
         }
     }
 }
@@ -319,7 +318,7 @@ int main(){
             if(spasi==' '){
             	flappy_game(score); 
             	
-            	mvprintw(11,50, "Burung anda tewas, %s", userChar);
+            	mvprintw(11,50, "Burung %s tewas", userChar);
             	refresh();
             	Beep(100,1000);
             	Beep(500,1000);
