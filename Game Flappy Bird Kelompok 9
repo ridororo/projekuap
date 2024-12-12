@@ -24,6 +24,7 @@ void pipa(int x, int gap_start, int ukuran, int tinggi_layar) {
 }
 
 bool fitur_game(int burung_y, int burung_x, int pipa_x, int gap_start, int ukuran, int tinggi_layar) {
+
     
 if (burung_y < 0 || burung_y >= tinggi_layar) {
 return true;
@@ -254,3 +255,131 @@ int main(){
         }
     }
 	clear();
+noecho();
+	cbreak();
+	int awalX = 50, awalY = 10; 
+	int lebar = 16, tinggi = 5;
+	
+	WINDOW *menu_win = newwin(tinggi, lebar, awalY, awalX);
+	keypad(menu_win, TRUE);
+	
+	const char* userChar=user.c_str();
+	
+	
+	const char *opsi[] = {
+	"|    Start   |", 
+	"|LeaderBoard |",
+	"|    Exit    |" 
+	
+	};
+	int jumlahOpsi = sizeof(opsi) / sizeof(char *);
+	int pilihanTerpilih = 0;
+	int pilihan = -1;
+	
+	
+    keypad(menu_win, TRUE);
+	
+	int score;
+	int tinggi_layar, lebar_layar;
+    getmaxyx(stdscr, tinggi_layar, lebar_layar);
+	
+	while (1){
+		box (menu_win,0,0);
+		mvprintw(8, 44, "Silahkan Pilih Menu Di Bawah");
+		mvprintw(5, 39, ">>>Selamat Datang di Menu Permainan, %s<<<",userChar);
+		refresh();
+		menu(menu_win, pilihanTerpilih, opsi, jumlahOpsi);
+		int tombol = wgetch(menu_win);
+		switch (tombol){
+			case KEY_UP :
+				if (pilihanTerpilih == 0)
+				pilihanTerpilih = jumlahOpsi - 1;
+				else 
+				--pilihanTerpilih;
+				break;
+			case KEY_DOWN:
+				if (pilihanTerpilih == jumlahOpsi - 1)
+				pilihanTerpilih = 0;
+				else
+				++pilihanTerpilih;
+				break;
+			case 10:
+				pilihan = pilihanTerpilih;
+				break;
+		
+		}
+		
+		clear();
+if (pilihan == 0) { 
+            loadingBar();
+            clear ();
+            mvprintw(14,35," Selamat datang di Flappy Bird tekan spasi untuk mulai ");
+            char spasi=getch();
+            if(spasi==' '){
+            	flappy_game(score); 
+            	
+            	mvprintw(11,50, "Burung %s tewas", userChar);
+            	refresh();
+            	Beep(100,1000);
+            	Beep(500,1000);
+            	Beep(400,1000);
+            	Beep(500,1000);
+            	clear();
+            	mvprintw(11, 50,  "GAME OVER! Final Score: %d", score);
+            	refresh();
+  				mvprintw(12, 45,"...Klik Apapun Untuk Melanjutkan...");
+  				
+    			refresh();
+    			getch();
+
+			    ofstream file("score.txt", ios::app);
+    			if (file.is_open()) {
+        			file <<setw(30)<<left<<user<<setw(30)<<left<< score << endl;
+       			 	file.close();
+    			}
+			}
+            clear();
+            pilihan=-1;
+            continue;
+}else if(pilihan==1){
+        	endwin();
+		system("cls");
+        	cout<<"---------------(LeaderBoard)---------------"<<endl;
+        	cout<<setw(30)<<left<<"User"<<setw(30)<<"Score"<<endl;
+        	char kamuNanya;
+        	ifstream file("score.txt",ios::app);
+        	while(!file.eof()){
+				file.get(kamuNanya);
+				cout<<kamuNanya;
+			}
+			cin.get();
+			initscr();
+			pilihan=-1;
+        	
+        	
+		}else if (pilihan == 2){
+        	clear();
+        	mvprintw(14,40,"Sampai jumpa dan terimakasih...");
+        	refresh();
+        	getch();
+			break;
+		}
+	}
+	clear();
+	loadingBar();
+	clrtoeol();
+	refresh();
+	endwin();
+	return 0;
+} 
+
+void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahOpsi){
+
+  for (int i = 0; i < jumlahOpsi; i++){
+	if (i == pilihanTerpilih)
+	wattron(menu_win, A_REVERSE);
+	mvwprintw(menu_win, i + 1, 1, opsi[i]);
+	wattroff(menu_win, A_REVERSE);
+}
+wrefresh(menu_win);
+}
