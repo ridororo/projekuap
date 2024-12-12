@@ -1,0 +1,5 @@
+#include <iostream>
+#include <ncurses/ncurses.h>
+#include <fstream>
+#include <windows.h>
+
