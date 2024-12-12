@@ -345,6 +345,7 @@ int main(){
     
         }else if(pilihan==1){
         	endwin();
+		system("cls");
         	cout<<"---------------(LeaderBoard)---------------"<<endl;
         	cout<<setw(30)<<left<<"User"<<setw(30)<<"Score"<<endl;
         	char kamuNanya;
