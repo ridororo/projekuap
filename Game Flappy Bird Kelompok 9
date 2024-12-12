@@ -33,7 +33,7 @@ return true;
 if (burung_x == pipa_x && (burung_y < gap_start || burung_y > gap_start + ukuran)) {
 return true;
 }
-return false;
+return false;
 }
 
 void flappy_game(int &score) {
@@ -125,8 +125,8 @@ void registrasi() {
                 i--;
                 printw("\b \b");  
                 refresh();
-            }
-        }
+		}
+	}
 else if (i < maxKarakter - 1) {  
             userInput[i++] = ch;  
             printw("%c", ch);  
