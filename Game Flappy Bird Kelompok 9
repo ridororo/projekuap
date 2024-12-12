@@ -5,6 +5,35 @@
 #include <iomanip>
 
 using namespace std;
+void burung(int y, int x){
+	
+	mvaddstr(y-1,x," /\\");
+	mvaddstr(y, x, "(/O)>>");
+	mvaddstr(y+1,x,"//=)");
+//	mvaddstr(y+2,x,"= =");
+	
+}
+
+void pipa(int x, int gap_start, int ukuran, int tinggi_layar) {
+	char simbol_pipa='#';
+    for (int y = 0; y < tinggi_layar; ++y) {
+        if (y < gap_start || y > gap_start + ukuran) {
+            mvaddstr(y, x, "=====");
+        }
+    }
+}
+
+bool fitur_game(int burung_y, int burung_x, int pipa_x, int gap_start, int ukuran, int tinggi_layar) {
+    
+    if (burung_y < 0 || burung_y >= tinggi_layar) {
+        return true;
+    }
+   
+    if (burung_x == pipa_x && (burung_y < gap_start || burung_y > gap_start + ukuran)) {
+        return true;
+    }
+    return false;
+    }
 void registrasi() {
     ofstream file, accList;
     mvprintw(10, 50, "------(Registrasi)------");
