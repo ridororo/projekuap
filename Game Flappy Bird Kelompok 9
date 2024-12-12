@@ -3,3 +3,18 @@
 #include <fstream>
 #include <windows.h>
 
+using namespace std;
+
+void burung(int y, int x){
+	char simbol_burung='@';
+	mvaddch(y, x, simbol_burung);
+}
+
+void pipa(int x, int gap_start, int ukuran, int tinggi_layar) {
+	char simbol_pipa='#';
+    for (int y = 0; y < tinggi_layar; ++y) {
+        if (y < gap_start || y > gap_start + ukuran) {
+            mvaddch(y, x, simbol_pipa);
+        }
+    }
+}
