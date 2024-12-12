@@ -135,7 +135,62 @@ int main(){
             continue;  
         }
     }
-
+	clear();
+	noecho();
+	cbreak();
+	int awalX = 50, awalY = 10; 
+	int lebar = 16, tinggi = 5;
+	
+	WINDOW *menu_win = newwin(tinggi, lebar, awalY, awalX);
+	keypad(menu_win, TRUE);
+	
+	const char* userChar=user.c_str();
+	
+	
+	const char *opsi[] = {
+	"|    Start   |", 
+	"|LeaderBoard |",
+	"|    Exit    |" 
+	
+	};
+	int jumlahOpsi = sizeof(opsi) / sizeof(char *);
+	int pilihanTerpilih = 0;
+	int pilihan = -1;
+	
+	
+    keypad(menu_win, TRUE);
+	
+	int score;
+	int tinggi_layar, lebar_layar;
+    getmaxyx(stdscr, tinggi_layar, lebar_layar);
+	
+	while (1){
+		box (menu_win,0,0);
+		mvprintw(8, 44, "Silahkan Pilih Menu Di Bawah");
+		mvprintw(5, 39, ">>>Selamat Datang di Menu Permainan, %s<<<",userChar);
+		refresh();
+		menu(menu_win, pilihanTerpilih, opsi, jumlahOpsi);
+		int tombol = wgetch(menu_win);
+		switch (tombol){
+			case KEY_UP :
+				if (pilihanTerpilih == 0)
+				pilihanTerpilih = jumlahOpsi - 1;
+				else 
+				--pilihanTerpilih;
+				break;
+			case KEY_DOWN:
+				if (pilihanTerpilih == jumlahOpsi - 1)
+				pilihanTerpilih = 0;
+				else
+				++pilihanTerpilih;
+				break;
+			case 10:
+				pilihan = pilihanTerpilih;
+				break;
+		
+		}
+		
+		clear();
 
 
 }
