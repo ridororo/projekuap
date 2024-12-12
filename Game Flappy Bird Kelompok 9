@@ -106,6 +106,25 @@ void login(bool &loginSuccess, string &user) {
         getch();
     }
 }
+void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahOpsi);
+void loadingBar(){
+    
+initscr();
+for (int i=0; i<1; i++) {
+mvprintw(12, 50, "Loading...");
+mvprintw(13, 50, "------------------"); 
+mvprintw(14, 50, "|                |");
+mvprintw(15, 50, "------------------");
+
+for (int f=1; f<17; f++) {
+mvprintw(14, 50 + f, ">");
+refresh(); 
+Beep(831,50);
+Beep(880,50); 
+}
+}
+}
+
 
 
 int main(){
@@ -263,7 +282,4 @@ void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahO
 	wattroff(menu_win, A_REVERSE);
 }
 wrefresh(menu_win);
-}
-
-
 }
