@@ -360,7 +360,7 @@ int main(){
         	
 		}else if (pilihan == 2){
         	clear();
-        	mvprintw(14,40,"Sampai jumpa dan terimakasih...");
+        	mvprintw(15,40,"Sampai jumpa dan terimakasih...");
         	refresh();
         	getch();
 			break;
