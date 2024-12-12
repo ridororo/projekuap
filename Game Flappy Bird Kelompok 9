@@ -126,4 +126,131 @@ void registrasi() {
                 refresh();
             }
         }
+else if (i < maxKarakter - 1) {  
+            userInput[i++] = ch;  
+            printw("%c", ch);  
+            refresh();
+        }
+    }
+    userInput[i] = '\0';  
+    
+    string userRegs = userInput;
+    file.open(userRegs + ".txt");
+    file << 0;  
+    file.close();
+    
+    accList.open("ListAccount.txt", ios::app);
+    accList << userRegs << endl;
+    accList.close();
+    
+    clear();
+    mvprintw(12, 50, "Registrasi Selesai");
+    refresh(); 
+    getch();
+}
 
+void login(bool &loginSuccess, string &user) {
+    ifstream file;
+    mvprintw(10, 50, "------(LOGIN)------");
+    mvprintw(12, 50, "Username: ");
+    refresh();
+    int maxKarakter = 100;
+    char userInpt[maxKarakter];
+    string userData;
+    int i = 0;
+    while (1) {
+        int ch = getch(); 
+        
+        if (ch == 10) {  
+            break;
+        }
+        else if (ch == 127 || ch == 8 || ch == KEY_BACKSPACE) { 
+            if (i > 0) {
+                userInpt[i - 1] = '\0'; 
+                i--;
+                printw("\b \b");  
+                refresh();
+            }
+        }
+        else if (i < maxKarakter - 1) {  
+            userInpt[i++] = ch;  
+            printw("%c", ch);  
+            refresh();
+        }
+    }
+    userInpt[i] = '\0';
+    string userLog = userInpt;
+    file.open("ListAccount.txt");
+    bool exist = false;
+    while (file >> userData) {
+        if (userLog == userData) {
+            exist = true;
+        }
+    }
+    file.close();
+    
+    clear();
+    if (exist) {
+        file.open(userLog + ".txt");
+        mvprintw(12, 50, "Login Berhasil");
+        refresh();
+        loginSuccess = true; 
+		user=userLog; 
+        getch();
+        file.close();
+    } else {
+        mvprintw(12, 45, "Login Gagal, pastikan username anda benar");
+        refresh();
+        loginSuccess = false;  
+        getch();
+    }
+}
+void menu(WINDOW *menu_win, int pilihanTerpilih, const char *opsi[], int jumlahOpsi);
+void loadingBar(){
+    
+initscr();
+for (int i=0; i<1; i++) {
+mvprintw(12, 50, "Loading...");
+mvprintw(13, 50, "------------------"); 
+mvprintw(14, 50, "|                |");
+mvprintw(15, 50, "------------------");
+
+for (int f=1; f<17; f++) {
+mvprintw(14, 50 + f, ">");
+refresh(); 
+Beep(831,50);
+Beep(880,50); 
+}
+}
+}
+
+
+
+int main(){
+  system("color C");
+	initscr();
+	clear();
+  noecho();
+    
+    char choice;
+    bool loginSuccess = false;  
+    string user;
+
+    while (!loginSuccess) {  
+    clear();
+        mvprintw(10, 40, "Login Terlebih dahulu/ Register untuk username baru");
+        mvprintw(11, 40, "1. Login");
+        mvprintw(12, 40, "2. Register");
+        mvprintw(13, 40, "Pilih [1/2]: ");
+        choice = getch();
+        if (choice == '1') {
+            clear();
+            login(loginSuccess,user);  
+        } else if (choice == '2') {
+            clear();
+            registrasi();
+        } else {
+            continue;  
+        }
+    }
+	clear();
