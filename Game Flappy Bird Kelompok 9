@@ -191,6 +191,36 @@ int main(){
 		}
 		
 		clear();
+if (pilihan == 0) { 
+            loadingBar();
+            clear ();
+            mvprintw(14,35," Selamat datang di Flappy Bird tekan spasi untuk mulai ");
+            char spasi=getch();
+            if(spasi==' '){
+            	flappy_game(score); 
+            	
+            	mvprintw(11,50, "Burung %s tewas", userChar);
+            	refresh();
+            	Beep(100,1000);
+            	Beep(500,1000);
+            	Beep(400,1000);
+            	Beep(500,1000);
+            	clear();
+            	mvprintw(11, 50,  "GAME OVER! Final Score: %d", score);
+            	refresh();
+  				mvprintw(12, 45,"...Klik Apapun Untuk Melanjutkan...");
+  				
+    			refresh();
+    			getch();
 
+			    ofstream file("score.txt", ios::app);
+    			if (file.is_open()) {
+        			file <<setw(30)<<left<<user<<setw(30)<<left<< score << endl;
+       			 	file.close();
+    			}
+			}
+            clear();
+            pilihan=-1;
+            continue;
 
 }
