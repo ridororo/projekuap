@@ -22,6 +22,23 @@ void pipa(int x, int gap_start, int ukuran, int tinggi_layar) {
         }
     }
 }
+void burung(int y, int x){
+	
+	mvaddstr(y-1,x," /\\");
+	mvaddstr(y, x, "(/O)>>");
+	mvaddstr(y+1,x,"//=)");
+//	mvaddstr(y+2,x,"= =");
+	
+}
+
+void pipa(int x, int gap_start, int ukuran, int tinggi_layar) {
+	char simbol_pipa='#';
+    for (int y = 0; y < tinggi_layar; ++y) {
+        if (y < gap_start || y > gap_start + ukuran) {
+            mvaddstr(y, x, "=====");
+        }
+    }
+}
 
 bool fitur_game(int burung_y, int burung_x, int pipa_x, int gap_start, int ukuran, int tinggi_layar) {
     
@@ -32,77 +49,8 @@ bool fitur_game(int burung_y, int burung_x, int pipa_x, int gap_start, int ukura
     if (burung_x == pipa_x && (burung_y < gap_start || burung_y > gap_start + ukuran)) {
         return true;
     }
-    return false;
-    }
-
-void flappy_game(int &score) {
-    initscr();
-    noecho();
-    curs_set(FALSE);
-
-    int tinggi_layar, lebar_layar;
-    getmaxyx(stdscr, tinggi_layar, lebar_layar);
-
-    int burung_x = lebar_layar / 4;
-    int burung_y = tinggi_layar / 2;
-    int pipa_x = lebar_layar;
-    int gap_start = tinggi_layar/3;
-    int ukuran = 10;
-    
-    int kecepatan = 0;
-    int gravitasi = 1;
-    int kekuatan_lompat = -1;
-    score = 0;
-	
-	
-    nodelay(stdscr, TRUE);
-
-    
-	
-	bool game_over = false;
-
-        while (!game_over) {
-        clear();
-
-        
-        burung(burung_y, burung_x);
-
-        
-        pipa(pipa_x, gap_start, ukuran, tinggi_layar);
-		game_over = fitur_game(burung_y, burung_x, pipa_x, gap_start, ukuran, tinggi_layar);
-    
-   		burung_y += kecepatan;
-        kecepatan += gravitasi;
-
-        
-        pipa_x -= 5;
-        if (pipa_x < 0) {
-            pipa_x = lebar_layar;
-            gap_start = rand() % (tinggi_layar - ukuran - 1);
-            score+=10;
-        }
-        
-        mvprintw(0, 0, "Score: %d", score);
-
-       
-        int ch = getch();
-        if (ch == ' ') {
-            kecepatan = kekuatan_lompat;
-        } else if (ch == 'q') {
-            break; 
-        }
-
-        
-        refresh();
-        Beep(831,80);
+    return false;
     }
-
-    nodelay(stdscr, false);
-    clear();
-      
-
-}
-    
 
 void registrasi() {
     ofstream file, accList;
