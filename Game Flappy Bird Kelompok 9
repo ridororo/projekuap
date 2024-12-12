@@ -7,7 +7,9 @@
 using namespace std;
 
 void burung(int y, int x){
-	mvaddstr(y, x, "(O)>");
+	mvaddstr(y-1,x," /\\");
+	mvaddstr(y, x, "(/O)>");
+	mvaddstr(y+1,x,"///)");
 }
 
 void pipa(int x, int gap_start, int ukuran, int tinggi_layar) {
